@@ -1,14 +1,13 @@
 <?php
 include("config.php");
+include("config2.php");
 include("schema_query.php");
-$query1="SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES
- WHERE TABLE_CATALOG = '$db1' AND TABLE_SCHEMA = '$s1'";
-$query2="SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES
- WHERE TABLE_CATALOG = '$db2' AND TABLE_SCHEMA = '$s2'";
+$query1="SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_CATALOG = '$db1' AND TABLE_SCHEMA = '$s1'";
+$query2="SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_CATALOG = '$db2' AND TABLE_SCHEMA = '$s2'";
 ?>
 <!DOCKTYPE html>
 <head>
-<title>Compare Tables</title>
+<title>Compare Databases</title>
 <link rel="stylesheet" href="style_compare_tables.css">
 </head>
 
@@ -23,6 +22,21 @@ Select Schemas
 Select Tables
 </p>
 </div>
+
+<div class="table-container">
+<table>
+    <tr><th colspan="4">Data Selected</th><tr>
+    <tr>
+        <td><b>Database1:</b></td><td><?php echo $db1; ?></td>
+        <td><b>Database2:</b></td><td><?php echo $db2; ?></td>
+    </tr>
+    <tr>
+        <td><b>Schema1:</b></td><td><?php echo $s1; ?></td>
+        <td><b>Schema2:</b></td><td><?php echo $s2; ?></td>
+    </tr>
+</table>
+</div>
+
 <form action="" method = "post" name="table_selection">
 <input type="hidden" id="db1" name="db1" value="<?php echo $db1; ?>">
 <input type="hidden" id="db2" name="db2" value="<?php echo $db2; ?>">
@@ -59,8 +73,9 @@ if (pg_num_rows($tables2) > 0) {
 ?>
 </select>
 
-<input type="submit" name="select_tables" value="Select Tables" class="btn" onclick="twoTables();"/>
-<input type="submit" name="test_all_tables" value="All Tables" class="btn" onclick="allTables();"/>
+<input type="submit" name="select_tables" value="Two Tables" class="btn" onclick="twoTables();"/>
+<input type="submit" name="select_columns" value="Select Columns" class="btn" onclick="selectColumns();"/>
+
 </div>
 </form>
 <script>
@@ -68,9 +83,9 @@ function twoTables()
 {
  document.table_selection.action ="two_tables.php";
 }
-function allTables()
+function selectColumns()
 {
-document.table_selection.action = "all_tables.php";
+document.table_selection.action = "select_columns.php";
 }
 </script>
 
