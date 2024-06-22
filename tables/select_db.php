@@ -1,10 +1,11 @@
 <?php
 include("config.php");
+include("config2.php");
 $query_dbs="SELECT datname FROM pg_database";
 ?>
 <!DOCKTYPE html>
 <head>
-<title>Compare Tables</title>
+<title>Compare Databases</title>
 <link rel="stylesheet" href="style_compare_tables.css">
 </head>
 
@@ -33,7 +34,7 @@ if (pg_num_rows($dbs) > 0) {
 <select name="db2">
 <option value="" selected></option>
 <?php
-$dbs = pg_query($conn,$query_dbs);
+$dbs = pg_query($conn_other,$query_dbs);
 if (pg_num_rows($dbs) > 0) {
     while($db2_row = pg_fetch_row($dbs)) {
         ?><option><?php echo $db2_row[0]; ?></option>
