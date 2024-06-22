@@ -1,12 +1,13 @@
 <?php
 include("config.php");
+include("config2.php");
 include("db_query.php");
 $query1="SELECT DISTINCT TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_CATALOG = '$db1'";
 $query2="SELECT DISTINCT TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_CATALOG = '$db2'";
 ?>
 <!DOCKTYPE html>
 <head>
-<title>Compare Tables</title>
+<title>Compare Databases</title>
 <link rel="stylesheet" href="style_compare_tables.css">
 </head>
 
@@ -19,7 +20,18 @@ $query2="SELECT DISTINCT TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE
 Select Schemas
 </p>
 </div>
-<form action="select_tables.php" method = "post">
+
+<div class="table-container">
+<table>
+    <tr><th colspan="4">Data Selected</th><tr>
+    <tr>
+        <td><b>Database1:</b></td><td><?php echo $db1; ?></td>
+        <td><b>Database2:</b></td><td><?php echo $db2; ?></td>
+    </tr>
+</table>
+</div>
+
+<form action="" method = "post"  name="schema_selection">
 <input type="hidden" id="db1" name="db1" value="<?php echo $db1; ?>">
 <input type="hidden" id="db2" name="db2" value="<?php echo $db2; ?>">
 
@@ -53,10 +65,19 @@ if (pg_num_rows($schemas2) > 0) {
 ?>
 </select>
 
-<input type="submit" name="submit" value="Submit" class="btn"/>
-
+<input type="submit" name="select_tables" value="Select Tables" class="btn"  onclick="selectTables();"/>
+<input type="submit" name="test_all_tables" value="All Tables" class="btn" onclick="allTables();"/>
 </div>
 </form>
-
+<script>
+function selectTables()
+{
+document.schema_selection.action = "select_tables.php";
+}
+function allTables()
+{
+document.schema_selection.action = "all_tables.php";
+}
+</script>
 </body>
 </html>
