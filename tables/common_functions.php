@@ -156,4 +156,54 @@ function getDatabaseDetails($db, $schemaName, $tableName)
 
    return $table_data;
 }
+
+function getColumnData($db, $column, $tableName)
+{
+    $result = pg_query($db, "SELECT $column FROM $tableName");
+    if (!$result) {
+        die("Error fetching columns: " . pg_last_error($db));
+    }
+
+   $column_data = [];
+   
+    while ($row = pg_fetch_assoc($result)) {
+        $column_data[] = $row[$column];
+    }
+
+   return $column_data;
+}
+
+function getPairedColumns($db, $table_name, $val_col, $key_col, $key_data){
+    $result = pg_query($db, "SELECT $val_col FROM $table_name WHERE $key_col ='$key_data'");
+    if (!$result) {
+        die("Error fetching columns: " . pg_last_error($db));
+    }
+   
+    $column_data = "";
+    while ($row = pg_fetch_assoc($result)) {
+        $column_data = $row[$val_col];
+    }
+
+   return $column_data;
+}
+
+function normalizeHtml($html) {
+    $normalized = strtolower($html);
+    $normalized = preg_replace('/>\s+</', '><', $normalized);
+    return $normalized;
+}
+
+function compareEmailTemplates($db1, $db2, $tb1, $tb2, $data){
+    $html1 = getPairedColumns($db1, $tb1, "tet_email_template", "tet_email_code", $data);
+    $html2 = getPairedColumns($db2, $tb2, "tet_email_template", "tet_email_code", $data);
+
+    $normalizedHtml1 = normalizeHtml($html1);
+    $normalizedHtml2 = normalizeHtml($html2);
+
+    if ($normalizedHtml1 === $normalizedHtml2) {
+        echo "same";
+    } else {
+        echo "different";
+    }
+}
 ?>
