@@ -1,11 +1,12 @@
 <?php
 include("config.php");
+include("config2.php");
 include("db_query.php");
 include("common_functions.php");
 ?>
 <!DOCKTYPE html>
 <head>
-<title>Compare Schemas</title>
+<title>Compare Databases</title>
 <link rel="stylesheet" href="style_compare_tables.css">
 </head>
 
@@ -26,6 +27,16 @@ All Schemas
     $diff_schemas2=array_diff($schemas2, $schemas1);
 ?>
 
+<div class="table-container">
+<table>
+    <tr><th colspan="4">Data Selected</th><tr>
+    <tr>
+        <td><b>Database1:</b></td><td><?php echo $db1; ?></td>
+        <td><b>Database2:</b></td><td><?php echo $db2; ?></td>
+    </tr>
+</table>
+</div>
+
     <div class="left">
     <h3>Matching Schemas</h3>
 
@@ -36,8 +47,8 @@ All Schemas
         <div class="grid-item tab-heading"><b>Schema</b></div>
         <div class="grid-item tab-heading"><b>Table</b></div>
         <div class="grid-item tab-heading"><b>Column</b></div>
-        <div class="grid-item tab-heading"><b>DataType of <?php echo $db1; ?></b></div>
-        <div class="grid-item tab-heading"><b>DataType of <?php echo $db2; ?></b></div>
+        <div class="grid-item tab-heading"><b>DataType of Database:</b> <?php echo $db1; ?></div>
+        <div class="grid-item tab-heading"><b>DataType of Database:</b> <?php echo $db2; ?></div>
         <?php
             foreach($commonSchemas as $schema_data) {
                 $tablesOfCommonSchemas1 = getTables($conn1, $schema_data);
