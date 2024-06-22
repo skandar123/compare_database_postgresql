@@ -11,7 +11,7 @@ include("common_functions.php");
 </head>
 
 <body>
-<h2>Comparing Paired Columns of 2 Databases</h2><!-- Changed heading - Sayantika 06/06/2024 -->
+<h2>Comparing Paired Columns of 2 Databases</h2>
 <div>
 <p>
 <a href="select_db.php">Select Databases</a>
@@ -81,7 +81,7 @@ $diff_column_data2=array_diff($column_data2, $column_data1);
 </div>
 
 <div class="left">
-    <h3>Matching Rows</h3><!-- Changed heading - Sayantika 06/06/2024 -->
+    <h3>Matching Rows</h3>
 
     <div class="container">
     <div class="tab-large">
@@ -90,7 +90,7 @@ $diff_column_data2=array_diff($column_data2, $column_data1);
     <div class="grid-item tab-heading span">
         <b>Database:</b>
         <?php
-        //Added new code for email templates - Sayantika 05/06/2024
+        
         if($value_column=='tet_email_template'){
             echo $db1." and ".$db2;
         }
@@ -108,7 +108,7 @@ $diff_column_data2=array_diff($column_data2, $column_data1);
             <div class="grid-item">
             <?php
             if($value_column=='tet_email_template'){
-                //Added new code for email templates - Sayantika 05/06/2024
+                
                 compareEmailTemplates($conn7, $conn8, $table_name1, $table_name2, $data);
             }
             elseif($value_column=='tcm_value'){
@@ -122,7 +122,7 @@ $diff_column_data2=array_diff($column_data2, $column_data1);
     </div><!-- End of grid-container -->
     </div><!-- End of tab -->
     
-    <?php if($value_column!='tet_email_template'){  //Added new code for email templates - Sayantika 05/06/2024 ?>
+    <?php if($value_column!='tet_email_template'){   ?>
     <div class="tab-large">
     
     <div class="grid-container-single">
@@ -151,7 +151,7 @@ $diff_column_data2=array_diff($column_data2, $column_data1);
     
 
     <div class="right">
-	<h3>Non Matching Rows</h3><!-- Changed heading - Sayantika 06/06/2024 -->
+	<h3>Non Matching Rows</h3>
 	<div class="container">
     <div class="tab-large">
     
@@ -167,7 +167,7 @@ $diff_column_data2=array_diff($column_data2, $column_data1);
             <div class="grid-item"><?php echo $data; ?></div>
             <div class="grid-item">
             <?php if($value_column=='tet_email_template'){
-                        //Added new code for email templates - Sayantika 05/06/2024
+                        
                         compareEmailTemplates($conn7, $conn8, $table_name1, $table_name2, $data);
                     }
                     elseif($value_column=='tcm_value'){
@@ -193,7 +193,7 @@ $diff_column_data2=array_diff($column_data2, $column_data1);
             <div class="grid-item"><?php echo $data; ?></div>
             <div class="grid-item">
             <?php if($value_column=='tet_email_template'){
-                   //Added new code for email templates - Sayantika 05/06/2024
+                   
                    compareEmailTemplates($conn7, $conn8, $table_name1, $table_name2, $data);
                   }
                   elseif($value_column=='tcm_value'){
